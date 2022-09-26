@@ -1,0 +1,22 @@
+#contact-list-text{
+  margin-top: 50px;
+}
+#trash-icon {
+    margin-top: 20px;
+  line-height: 0px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+#trash-icon:hover {
+  transform: scale(1.3);
+  color: red;
+}
+#user-icon:hover{
+  transform: scale(1.3);
+  
+}
+
+#add-contact-button{
+  float: right;
+ 
+}

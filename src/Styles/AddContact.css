@@ -1,0 +1,32 @@
+#add-contact-text{
+    margin-top: 3rem;
+    /* color: rgb(216, 19, 219); */
+    font-size: 1.5rem;
+}
+#add-button{
+    position: absolute;
+}
+
+#add-button:hover{
+background-color: green;
+}
+
+#add-icon:hover{
+    transform: scale(1.5);
+
+}
+#contactList-button{
+    
+    margin-left: 100px;
+
+}
+
+
+
+#contactList-button:hover{
+    background-color: crimson;
+   
+}
+#contactList-icon:hover{
+    transform: scale(1.5);
+}

@@ -1,0 +1,25 @@
+
+#header-div{
+   display: flex;
+  justify-content: center;
+  /* cursor:pointer; */
+  
+}
+#header-div:hover{
+    color: rgb(221, 24, 100);
+    
+}
+
+
+#home-button{
+  border: none;
+  outline: none;
+  margin-right: 50px;
+  padding-top: 7px;
+  cursor: pointer;
+
+}
+#home-button:hover{
+  color: rgb(26, 194, 213);
+  transform: scale(1.2);
+}
