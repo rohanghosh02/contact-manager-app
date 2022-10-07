@@ -37,7 +37,7 @@ const AddContact = (props) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.name) {
-      errors.name = "name is required!";
+      errors.name = "Name is required!";
     }
     if (!values.email) {
       errors.email = "Email is required!";
