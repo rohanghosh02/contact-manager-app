@@ -1,89 +1,111 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "../Styles/AddContact.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-export default class AddContact extends Component {
-  state = {
-    name: "",
-    email: "",
-    phone: "",
+const AddContact = (props) => {
+
+  const initialValues = { name: "", email: "", phone: "" };
+  const [formValues, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   };
 
-  add = (e) => {
+  const add = (e) => {
+
+   
     e.preventDefault();
+    setFormErrors(validate(formValues));
+    setIsSubmit(true);
 
-    if (
-      this.state.name === "" ||
-      this.state.email === "" ||
-      this.state.email === ""
-    ) {
-      alert("All the fields are mandatory!");
-      return;
-    }
-    this.props.addContactHandler(this.state);
-
-    this.setState({ name: "", email: "", phone: "" });
-    // console.log(this.props);
-
-    // window.location.href = "/";
+   
   };
-  render() {
-    return (
-      <div className="ui main">
-        <h4 id="add-contact-text">Add Contact</h4>
-        <form className="ui form" onSubmit={this.add}>
-          <div className="field">
-            <label htmlFor="name">Name</label>
-            <input
-              id="name"
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={this.state.name}
-              onChange={(e) => this.setState({ name: e.target.value })}
-            />
 
-            <label htmlFor="phone">Mobile No.</label>
-            <input
-              id="phone"
-              type="text"
-              name="phone"
-              placeholder="Mobile No."
-              value={this.state.phone}
-              onChange={(e) => this.setState({ phone: e.target.value })}
-            />
+  useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      props.addContactHandler(formValues);
+      navigate('/');
+    }
+  }, [formErrors]);
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.name) {
+      errors.name = "name is required!";
+    }
+    if (!values.email) {
+      errors.email = "Email is required!";
+    } else if (!regex.test(values.email)) {
+      errors.email = "This is not a valid email format!";
+    }
+    if (!values.phone) {
+      errors.phone = "Mobile Number is required!";
+    } else if (values.phone.length < 10) {
+      errors.phone = "Mobile Number must be 10 digit!";
+    } else if (values.phone.length > 10) {
+      errors.phone = "Mobile Number can not more than 10 digit!";
+    }
+    return errors;
+  };
 
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="text"
-              name="email"
-              placeholder="email"
-              value={this.state.email}
-              onChange={(e) => this.setState({ email: e.target.value })}
-            />
-          </div>
-          <Link to="/"></Link>
+  return (
+    <div className="ui main">
+      <h4 id="add-contact-text">Add Contact</h4>
+      <form className="ui form" onSubmit={add}>
+        <div className="field">
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={formValues.name}
+            onChange={handleChange}
+          />
+          <p className="error-massage">{formErrors.name}</p>
 
-          <button id="add-button" className="ui  button ">
-            <i id="add-icon" className="icon user"></i>
-            Add
-          </button>
+          <label htmlFor="phone">Mobile No.</label>
+          <input
+            id="phone"
+            type="text"
+            name="phone"
+            placeholder="Mobile No."
+            value={formValues.phone}
+            onChange={handleChange}
+          />
+          <p className="error-massage">{formErrors.phone}</p>
 
-          {/* <Link to={"/"}>
-            <button id="add-button" className="ui  button ">
-              <i id="add-icon" className="icon user"></i>
-              Add
-            </button>
-          </Link> */}
-        </form>
-        <Link to="/">
-          <button id="contactList-button" className="ui  button ">
-            <i id="contactList-icon" className="address card icon"></i>
-            ContactList
-          </button>
-        </Link>
-      </div>
-    );
-  }
-}
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="text"
+            name="email"
+            placeholder="email"
+            value={formValues.email}
+            onChange={handleChange}
+          />
+          <p className="error-massage">{formErrors.email}</p>
+        </div>
+
+        <button id="add-button" className="ui  button ">
+          <i id="add-icon" className="icon user"></i>
+          Add
+        </button>
+      </form>
+      <Link to="/">
+        <button id="contactList-button" className="ui  button ">
+          <i id="contactList-icon" className="address card icon"></i>
+          ContactList
+        </button>
+      </Link>
+    </div>
+  );
+};
+
+export default AddContact;

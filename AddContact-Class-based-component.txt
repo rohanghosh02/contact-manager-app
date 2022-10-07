@@ -1,0 +1,90 @@
+import React, { Component } from "react";
+import "../Styles/AddContact.css";
+import { Link ,Navigate} from "react-router-dom";
+
+export default class AddContact extends Component {
+  state = {
+    name: "",
+    email: "",
+    phone: "",
+  
+
+  };
+
+  add = (e) => {
+    e.preventDefault();
+
+    if (
+      this.state.name === "" ||
+      this.state.email === "" ||
+      this.state.email === ""
+    ) {
+      alert("All the fields are mandatory!");
+      return;
+    }
+    this.props.addContactHandler(this.state);
+
+    this.setState({ name: "", email: "", phone: "" });
+    // console.log(this.props);
+   
+
+    
+  };
+
+
+ 
+  render() {
+    return (
+      <div className="ui main">
+        <h4 id="add-contact-text">Add Contact</h4>
+        <form className="ui form" onSubmit={this.add}>
+          <div className="field">
+            <label htmlFor="name">Name</label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={this.state.name}
+              onChange={(e) => this.setState({ name: e.target.value })}
+            />
+
+            <label htmlFor="phone">Mobile No.</label>
+            <input
+              id="phone"
+              type="text"
+              name="phone"
+              placeholder="Mobile No."
+              value={this.state.phone}
+              onChange={(e) => this.setState({ phone: e.target.value })}
+            />
+
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="text"
+              name="email"
+              placeholder="email"
+              value={this.state.email}
+              onChange={(e) => this.setState({ email: e.target.value })}
+            />
+          </div>
+      
+
+          <button id="add-button" className="ui  button ">
+            <i id="add-icon" className="icon user"></i>
+            Add
+          </button>
+
+       
+        </form>
+        <Link to="/">
+          <button id="contactList-button" className="ui  button ">
+            <i id="contactList-icon" className="address card icon"></i>
+            ContactList
+          </button>
+        </Link>
+      </div>
+    );
+  }
+}

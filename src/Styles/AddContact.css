@@ -30,3 +30,8 @@ background-color: green;
 #contactList-icon:hover{
     transform: scale(1.5);
 }
+
+
+.error-massage{
+    color: red;
+}
