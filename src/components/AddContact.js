@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/AddContact.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const AddContact = (props) => {
-
   const initialValues = { name: "", email: "", phone: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -17,20 +16,16 @@ const AddContact = (props) => {
   };
 
   const add = (e) => {
-
-   
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
-
-   
   };
 
   useEffect(() => {
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       props.addContactHandler(formValues);
-      navigate('/');
+      navigate("/");
     }
   }, [formErrors]);
   const validate = (values) => {

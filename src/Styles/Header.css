@@ -23,3 +23,7 @@
   color: rgb(26, 194, 213);
   transform: scale(1.2);
 }
+
+.show{
+  color: green;
+}

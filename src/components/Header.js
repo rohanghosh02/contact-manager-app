@@ -5,6 +5,10 @@ import { useNavigate } from "react-router-dom";
 export default function Header() {
   let navigate = useNavigate();
   const goToHome = () => { 
+    if(false){
+  const classAdd= document.getElementById('home-button')
+  classAdd.classList.add('show');
+    }
     navigate("/");
   };
   return (
@@ -17,7 +21,7 @@ export default function Header() {
        
        
       </div>
-      <i id="home-button"  className="icon home "  onClick={goToHome}>Home</i>
+      <i  id="home-button"  className="icon home "  onClick={goToHome}>Home</i>
     </div>
   );
 }

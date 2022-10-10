@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import '../Styles/App.css'
+import "../Styles/App.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -8,19 +8,16 @@ import AddContact from "./AddContact";
 import ContactList from "./ContactList";
 import ContactDetail from "./ContactDetail";
 
-
 import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
-  const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || []
-  );
+  const getItems = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+
+  const [contacts, setContacts] = useState(getItems);
 
   const addContactHandler = (contact) => {
-    setContacts([...contacts, { id: uuidv4(), ...contact }]);
-
-  
+    setContacts([...contacts, { id: uuidv4(), ...contact }]); //need to change
   };
   const removeContactHandler = (id) => {
     const newContactList = contacts.filter((contact) => {
@@ -65,7 +62,10 @@ function App() {
             // )}
           />
 
-          <Route path="/contact/:id" element={<ContactDetail  />}></Route>
+          <Route
+            path="/contact/:id"
+            element={<ContactDetail contact={contacts} />}
+          ></Route>
         </Routes>
 
         {/* <AddContact addContactHandler={addContactHandler} /> */}
